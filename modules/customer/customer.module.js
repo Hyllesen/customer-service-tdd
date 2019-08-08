@@ -3,5 +3,7 @@
 
   module.exports = init;
 
-  function init() {}
+  function init() {
+    return {};
+  }
 })();
