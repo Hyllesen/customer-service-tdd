@@ -25,6 +25,5 @@
     zipCode: String,
     country: String
   });
-
   module.exports = mongoose.model("customers", CustomerSchema);
 })();

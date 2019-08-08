@@ -1,0 +1,13 @@
+{
+  "_id": "5a494mfd9fd9sj39jf9js39j",
+  "firstName": "John",
+  "lastName": "Smith",
+  "email": "john.smith@example.com",
+  "phoneNumber": "939828282",
+  "address": "100 E Street",
+  "city": "New York",
+  "state": "NY",
+  "zipCode": "10000",
+  "country": "USA",
+  "__v": 0
+}
