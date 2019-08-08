@@ -19,4 +19,8 @@ describe("CustomerModule", () => {
   it("should confirm CustomerMiddleware object exits", () => {
     expect(CustomerModule().CustomerMiddleware).to.be.a("object");
   });
+
+  it("should confirm CustomerService object exist", () => {
+    expect(CustomerModule().CustomerService).to.be.a("object");
+  });
 });
