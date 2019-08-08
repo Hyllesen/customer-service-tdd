@@ -1,5 +1,7 @@
 (() => {
   "use strict";
 
-  module.exports = {};
+  function init() {}
+
+  module.exports = { init: init };
 })();

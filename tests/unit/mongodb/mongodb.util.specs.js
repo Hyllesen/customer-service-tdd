@@ -8,5 +8,8 @@ describe("MongoDBUtil", () => {
     it("should test first behaiviour", () => {
       //Write expectations for first behaivor here
     });
+    it("should confirm init function exist", () => {
+      expect(MongoDBUtil.init).to.be.a("function");
+    });
   });
 });
