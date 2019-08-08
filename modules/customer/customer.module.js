@@ -4,6 +4,9 @@
   module.exports = init;
 
   function init() {
-    return { CustomerController: require("./customer.controller") };
+    return {
+      CustomerController: require("./customer.controller"),
+      CustomerMiddleware: require("./customer.middleware")
+    };
   }
 })();
