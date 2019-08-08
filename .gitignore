@@ -1,2 +1,4 @@
 node_modules
 /node_modules
+/config/mongodb/mongodb-config.json
+config/mongodb/mongodb-config.json
