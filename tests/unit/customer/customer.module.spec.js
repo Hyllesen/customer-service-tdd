@@ -23,4 +23,8 @@ describe("CustomerModule", () => {
   it("should confirm CustomerService object exist", () => {
     expect(CustomerModule().CustomerService).to.be.a("object");
   });
+
+  it("should confirm CustomerModel function exist", () => {
+    expect(CustomerModule().CustomerModel).to.be.a("function");
+  });
 });
