@@ -1,8 +1,8 @@
-(() => {
-  "use strict";
+// (() => {
+//   "use strict";
 
-  module.exports = {
-    CustomerFixture: require("./customer-fixture"),
-    ErrorFixture: require("./error/error-fixture")
-  };
-})();
+//   module.exports = {
+//     CustomerFixture: require("./customer-fixture"),
+//     ErrorFixture: require("./error/error-fixture")
+//   };
+// })();
