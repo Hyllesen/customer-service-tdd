@@ -1,10 +1,16 @@
 const chai = require("chai");
 const expect = chai.expect;
 
-const MongoDBModule = require("../../../modules/mongodb/mongodb.module");
+const MongoDBUtil = require("../../../modules/mongodb/mongodb.module")
+  .MongoDBUtil;
 
 describe("MongoDBModule", () => {
   describe("mongodb.module file", () => {
-    it("should describe the test and it's expectation", () => {});
+    it("should read the mongodb.module file", () => {
+      expect(MongoDBUtil).to.be.a("object");
+    });
+    it("should confirm MongoDBUtil exist", () => {
+      expect(MongoDBUtil).to.be.a("object");
+    });
   });
 });
