@@ -4,6 +4,6 @@
   module.exports = init;
 
   function init() {
-    return {};
+    return { CustomerController: require("./customer.controller") };
   }
 })();

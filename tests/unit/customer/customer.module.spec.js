@@ -11,4 +11,8 @@ describe("CustomerModule", () => {
   it("should confirm CustomerModule function returns an object", () => {
     expect(CustomerModule()).to.be.a("object");
   });
+
+  it("should confirm CustomerController function exist", () => {
+    expect(CustomerModule().CustomerController).to.be.a("function");
+  });
 });
