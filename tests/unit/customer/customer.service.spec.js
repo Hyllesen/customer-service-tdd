@@ -41,5 +41,18 @@ describe("CustomerService", () => {
         expect(data).to.deep.equal(expectedCreatedCustomer);
       });
     });
+    it("should throw error while creating customer", () => {
+      expectedError = ErrorFixture.unknownError;
+      newCustomer = CustomerFixture.newCustomer;
+
+      CustomerModelMock.expects("create")
+        .withArgs(newCustomer)
+        .rejects(expectedError);
+
+      return CustomerService.createCustomer(newCustomer).catch(error => {
+        CustomerModelMock.verify();
+        expect(error).to.deep.equal(expectedError);
+      });
+    });
   });
 });
