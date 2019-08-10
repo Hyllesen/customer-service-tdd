@@ -57,6 +57,24 @@ describe("CustomerService", () => {
     });
   });
 
+  describe("fetchCustomerById", () => {
+    let expectedFetchedCustomer, customerId, expectedError;
+    it("should successfully fetch the customer by id", () => {
+      expectedFetchedCustomer = CustomerFixture.createdCustomer;
+      customerId = expectedFetchedCustomer._id;
+
+      CustomerModelMock.expects("findById")
+        .withArgs(customerId)
+        .chain("exec")
+        .resolves(expectedFetchedCustomer);
+
+      return CustomerService.fetchCustomersById(customerId).then(data => {
+        CustomerModelMock.verify();
+        expect(data).to.deep.equal(expectedFetchedCustomer);
+      });
+    });
+  });
+
   describe("fetchCustomers", () => {
     let expectedCustomers, expectedError;
     it("should successfully fetch all customers", () => {
