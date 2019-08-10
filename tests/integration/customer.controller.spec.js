@@ -32,4 +32,16 @@ describe("CustomerController", function() {
         });
     });
   });
+  describe("GET " + baseUri, () => {
+    it("should get all customers", () => {
+      request(app)
+        .get(baseUri)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body).to.not.equal(undefined);
+          expect(res.body).to.be.a("array");
+          expect(res.body.length).to.not.equal(0);
+        });
+    });
+  });
 });
