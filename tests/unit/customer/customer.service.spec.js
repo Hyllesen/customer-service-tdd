@@ -3,6 +3,7 @@
 const chai = require("chai");
 const expect = chai.expect;
 const sinon = require("sinon");
+require("sinon-mongoose");
 
 const mongoose = require("mongoose");
 
@@ -52,6 +53,21 @@ describe("CustomerService", () => {
       return CustomerService.createCustomer(newCustomer).catch(error => {
         CustomerModelMock.verify();
         expect(error).to.deep.equal(expectedError);
+      });
+    });
+  });
+
+  describe("fetchCustomers", () => {
+    let expectedCustomers, expectedError;
+    it("should successfully fetch all customers", () => {
+      expectedCustomers = CustomerFixture.customers;
+      CustomerModelMock.expects("find")
+        .withArgs({})
+        .chain("exec")
+        .resolves(expectedCustomers);
+      return CustomerService.fetchCustomers().then(data => {
+        CustomerModelMock.verify();
+        expect(data).to.deep.equal(expectedCustomers);
       });
     });
   });

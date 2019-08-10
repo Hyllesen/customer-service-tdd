@@ -1,0 +1,28 @@
+[
+  {
+    "_id": "5a59349jas9jfdf9js9j3",
+    "firstName": "John",
+    "lastName": "Smith",
+    "email": "john.smith@example.com",
+    "phoneNumber": 987673939,
+    "address": "100 E Street",
+    "city": "New York",
+    "state": "NY",
+    "zipCode": "10000",
+    "country": "USA",
+    "__v": 0
+  },
+  {
+    "_id": "dfdufn38nf38fn9s8nf9s",
+    "firstName": "Jane",
+    "lastName": "Smith",
+    "email": "jane.smith@example.com",
+    "phoneNumber": 81981981981,
+    "address": "100 E Street",
+    "city": "New York",
+    "state": "NY",
+    "zipCode": "10000",
+    "country": "USA",
+    "__v": 0
+  }
+]
