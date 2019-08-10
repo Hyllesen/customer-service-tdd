@@ -70,5 +70,18 @@ describe("CustomerService", () => {
         expect(data).to.deep.equal(expectedCustomers);
       });
     });
+    it("should throw error while fetching all customers", () => {
+      expectedError = ErrorFixture.unknownError;
+
+      CustomerModelMock.expects("find")
+        .withArgs({})
+        .chain("exec")
+        .rejects(expectedError);
+
+      return CustomerService.fetchCustomers().catch(error => {
+        CustomerModelMock.verify();
+        expect(error).to.deep.equal(expectedError);
+      });
+    });
   });
 });
