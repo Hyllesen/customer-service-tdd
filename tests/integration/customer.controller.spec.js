@@ -1,39 +1,34 @@
 "use strict";
 
-const chai = require("chai");
-const chaiHttp = require("chai-http");
-
+var chai = require("chai");
+var chaiHttp = require("chai-http");
 chai.use(chaiHttp);
 
-const expect = chai.expect;
-const request = chai.request;
-const app = require("../../app");
+var expect = chai.expect;
+var request = chai.request;
 
-const Fixtures = require("../fixtures/fixtures");
-const CustomerFixture = Fixtures.CustomerFixture;
+var app = require("../../app");
 
-const baseUri = "/customers";
+var Fixtures = require("../fixtures/fixtures");
+var CustomerFixture = Fixtures.CustomerFixture;
 
-describe("CustomerController", () => {
-  describe("POST " + baseUri, () => {
-    it("should add new customer", () => {
+var baseUri = "/customers";
+
+describe("CustomerController", function() {
+  describe("POST " + baseUri, function() {
+    it("should add new customer", function(done) {
       request(app)
         .post(baseUri)
         .send(CustomerFixture.newCustomer)
-        .end((err, res) => {
+        .end(function(err, res) {
           expect(res.status).to.equal(201);
           expect(res.body).to.not.equal({});
           expect(res.body._id).to.not.equal(undefined);
           expect(res.body.firstName).to.equal(
             CustomerFixture.createdCustomer.firstName
           );
+
           done();
-          expect(res.status).to.equal(200);
-          expect(res.body).to.not.equal({});
-          expect(res.body._id).to.not.equal(undefined);
-          expect(res.body.firstName).to.equal(
-            CustomerFixture.createdCustomer.firstName
-          );
         });
     });
   });
