@@ -13,5 +13,9 @@
     res.status(200).json(req.response);
   });
 
+  router.get("/:customerId", CustomerMiddleware.getCustomerById, (req, res) => {
+    return res.status(200).json(req.response);
+  });
+
   module.exports = router;
 })();

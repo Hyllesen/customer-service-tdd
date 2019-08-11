@@ -14,6 +14,10 @@ var CustomerFixture = Fixtures.CustomerFixture;
 
 var baseUri = "/customers";
 
+let testData = {
+  existingCustomer: {}
+};
+
 describe("CustomerController", function() {
   describe("POST " + baseUri, function() {
     it("should add new customer", function(done) {
@@ -33,7 +37,7 @@ describe("CustomerController", function() {
     });
   });
   describe("GET " + baseUri, () => {
-    it("should get all customers", () => {
+    it("should get all customers", done => {
       request(app)
         .get(baseUri)
         .end((err, res) => {
@@ -41,6 +45,23 @@ describe("CustomerController", function() {
           expect(res.body).to.not.equal(undefined);
           expect(res.body).to.be.a("array");
           expect(res.body.length).to.not.equal(0);
+          testData.existingCustomer = res.body[0];
+          done();
+        });
+    });
+  });
+  describe("GET " + baseUri + "/:customerId", () => {
+    it("should get a customer by id", done => {
+      request(app)
+        .get(baseUri + "/" + testData.existingCustomer._id)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body).to.not.equal(undefined);
+          expect(res.body).to.deep.equal(testData.existingCustomer);
+          expect(res.body.firstName).to.equal(
+            testData.existingCustomer.firstName
+          );
+          done();
         });
     });
   });
