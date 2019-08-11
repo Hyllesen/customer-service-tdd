@@ -4,9 +4,19 @@
     addCustomer,
     getCustomers,
     getCustomerById,
-    modifyCustomer
+    modifyCustomer,
+    deleteCustomer
   };
   const CustomerService = require("./customer.module")().CustomerService;
+
+  function deleteCustomer(req, res, next) {
+    CustomerService.deleteCustomer(req.params.customerId).then(success);
+
+    function success(data) {
+      req.response = data;
+      next();
+    }
+  }
 
   function modifyCustomer(req, res, next) {
     CustomerService.updateCustomer(req.params.customerId, req.body)
