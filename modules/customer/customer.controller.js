@@ -17,5 +17,9 @@
     return res.status(200).json(req.response);
   });
 
+  router.put("/:customerId", CustomerMiddleware.modifyCustomer, (req, res) => {
+    return res.status(200).json(req.response);
+  });
+
   module.exports = router;
 })();
