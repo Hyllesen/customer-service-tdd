@@ -5,8 +5,15 @@
   module.exports = {
     createCustomer,
     fetchCustomers,
-    fetchCustomerById
+    fetchCustomerById,
+    updateCustomer
   };
+
+  function updateCustomer(customerId, customer) {
+    return CustomerModel.findByIdAndUpdate(customerId, customer, {
+      new: true
+    }).exec();
+  }
 
   function createCustomer(customer) {
     return CustomerModel.create(customer);

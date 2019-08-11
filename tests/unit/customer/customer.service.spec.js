@@ -29,6 +29,26 @@ describe("CustomerService", () => {
     return mongoose.connection.close();
   });
 
+  describe("updateCustomer", () => {
+    let existingCustomer, expectedModifiedCustomer, expectedError;
+    it("should successfully update Customer", () => {
+      expectedModifiedCustomer = CustomerFixture.modifiedCustomer;
+      existingCustomer = CustomerFixture.createdCustomer;
+
+      CustomerModelMock.expects("findByIdAndUpdate")
+        .withArgs(existingCustomer._id, existingCustomer, { new: true })
+        .chain("exec")
+        .resolves(expectedModifiedCustomer);
+      return CustomerService.updateCustomer(
+        existingCustomer._id,
+        existingCustomer
+      ).then(data => {
+        CustomerModelMock.verify();
+        expect(data).to.deep.equal(expectedModifiedCustomer);
+      });
+    });
+  });
+
   describe("createCustomer", () => {
     let newCustomer, expectedCreatedCustomer, expectedError;
     it("should successfully create new customer", () => {
