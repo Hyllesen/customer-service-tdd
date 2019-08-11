@@ -54,6 +54,39 @@ describe("CustomerMiddleware", () => {
     });
   });
 
+  describe("modifyCustomer", () => {
+    let updateCustomer,
+      updateCustomerPromise,
+      expectedModifiedCustomer,
+      expectedError;
+
+    beforeEach(() => {
+      updateCustomer = sinon.stub(CustomerService, "updateCustomer");
+
+      req.body = CustomerFixture.modifiedCustomer;
+      req.params.customerId = req.body._id;
+    });
+
+    afterEach(() => {
+      updateCustomer.restore();
+    });
+
+    it("should successfully modify the customer details", () => {
+      expectedModifiedCustomer = CustomerFixture.modifiedCustomer;
+      updateCustomerPromise = Promise.resolve(expectedModifiedCustomer);
+      updateCustomer
+        .withArgs(req.params.customerId, req.body)
+        .returns(updateCustomerPromise);
+      CustomerMiddleware.modifyCustomer(req, res, next);
+      sinon.assert.callCount(updateCustomer, 1);
+      return updateCustomerPromise.then(() => {
+        expect(req.response).to.be.a("object");
+        expect(req.response).to.deep.equal(expectedModifiedCustomer);
+        sinon.assert.callCount(next, 1);
+      });
+    });
+  });
+
   describe("addCustomer", () => {
     let createCustomer,
       createCustomerPromise,

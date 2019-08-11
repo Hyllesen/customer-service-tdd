@@ -3,9 +3,25 @@
   module.exports = {
     addCustomer,
     getCustomers,
-    getCustomerById
+    getCustomerById,
+    modifyCustomer
   };
   const CustomerService = require("./customer.module")().CustomerService;
+
+  function modifyCustomer(req, res, next) {
+    CustomerService.updateCustomer(req.params.customerId, req.body)
+      .then(success)
+      .catch(failure);
+
+    function success(data) {
+      req.response = data;
+      next();
+    }
+
+    function failure(err) {
+      next(err);
+    }
+  }
 
   function getCustomerById(req, res, next) {
     CustomerService.fetchCustomerById(req.params.customerId)
