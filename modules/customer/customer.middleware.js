@@ -10,11 +10,17 @@
   const CustomerService = require("./customer.module")().CustomerService;
 
   function deleteCustomer(req, res, next) {
-    CustomerService.deleteCustomer(req.params.customerId).then(success);
+    CustomerService.deleteCustomer(req.params.customerId)
+      .then(success)
+      .catch(failure);
 
     function success(data) {
       req.response = data;
       next();
+    }
+
+    function failure(err) {
+      next(err);
     }
   }
 

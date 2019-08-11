@@ -78,6 +78,21 @@ describe("CustomerMiddleware", () => {
         sinon.assert.callCount(next, 1);
       });
     });
+
+    it("should throw error while removing customer", () => {
+      expectedError = ErrorFixture.unknownError;
+      deleteCustomerPromise = Promise.reject(expectedError);
+      deleteCustomer
+        .withArgs(req.params.customerId)
+        .returns(deleteCustomerPromise);
+
+      CustomerMiddleware.deleteCustomer(req, res, next);
+      sinon.assert.callCount(deleteCustomer, 1);
+      return deleteCustomerPromise.catch(error => {
+        expect(error).to.be.a("object");
+        expect(error).to.deep.equal(expectedError);
+      });
+    });
   });
 
   describe("modifyCustomer", () => {
