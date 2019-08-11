@@ -22,6 +22,38 @@ describe("CustomerMiddleware", () => {
     res = httpMocks.createResponse();
     next = sinon.spy();
   });
+
+  describe("getCustomerById", () => {
+    let fetchCustomerById,
+      fetchCustomerByIdPromise,
+      expectedCustomer,
+      expectedError;
+
+    beforeEach(() => {
+      fetchCustomerById = sinon.stub(CustomerService, "fetchCustomerById");
+    });
+
+    afterEach(() => {
+      fetchCustomerById.restore();
+    });
+
+    it("should successfully fetch the customer by id", () => {
+      expectedCustomer = CustomerFixture.createdCustomer;
+      fetchCustomerByIdPromise = Promise.resolve(expectedCustomer);
+      fetchCustomerById
+        .withArgs(req.params.CustomerId)
+        .returns(fetchCustomerByIdPromise);
+      CustomerMiddleware.getCustomerById(req, res, next);
+      sinon.assert.callCount(fetchCustomerById, 1);
+
+      return fetchCustomerByIdPromise.then(() => {
+        expect(req.response).to.be.a("object");
+        expect(req.response).to.deep.equal(expectedCustomer);
+        sinon.assert.callCount(next, 1);
+      });
+    });
+  });
+
   describe("addCustomer", () => {
     let createCustomer,
       createCustomerPromise,

@@ -68,12 +68,12 @@ describe("CustomerService", () => {
         .chain("exec")
         .resolves(expectedFetchedCustomer);
 
-      return CustomerService.fetchCustomersById(customerId).then(data => {
+      return CustomerService.fetchCustomerById(customerId).then(data => {
         CustomerModelMock.verify();
         expect(data).to.deep.equal(expectedFetchedCustomer);
       });
     });
-    it("should throw error while fetching all customers", () => {
+    it("should throw error while getting customer by id", () => {
       customerId = CustomerFixture.createdCustomer._id;
       expectedError = ErrorFixture.unknownError;
 
@@ -82,7 +82,7 @@ describe("CustomerService", () => {
         .chain("exec")
         .rejects(expectedError);
 
-      return CustomerService.fetchCustomersById(customerId).catch(error => {
+      return CustomerService.fetchCustomerById(customerId).catch(error => {
         CustomerModelMock.verify();
         expect(error).to.deep.equal(expectedError);
       });

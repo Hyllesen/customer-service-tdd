@@ -2,7 +2,11 @@
   "use strict";
 
   const CustomerModel = require("./customer.module")().CustomerModel;
-  module.exports = { createCustomer, fetchCustomers, fetchCustomersById };
+  module.exports = {
+    createCustomer,
+    fetchCustomers,
+    fetchCustomerById
+  };
 
   function createCustomer(customer) {
     return CustomerModel.create(customer);
@@ -12,7 +16,7 @@
     return CustomerModel.find({}).exec();
   }
 
-  function fetchCustomersById(id) {
+  function fetchCustomerById(id) {
     return CustomerModel.findById(id).exec();
   }
 })();
