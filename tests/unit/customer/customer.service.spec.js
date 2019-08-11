@@ -47,6 +47,23 @@ describe("CustomerService", () => {
         expect(data).to.deep.equal(expectedModifiedCustomer);
       });
     });
+    it("should throw error while updating customer", () => {
+      expectedError = ErrorFixture.unknownError;
+      existingCustomer = CustomerFixture.createdCustomer;
+
+      CustomerModelMock.expects("findByIdAndUpdate")
+        .withArgs(existingCustomer._id, existingCustomer, { new: true })
+        .chain("exec")
+        .rejects(expectedError);
+
+      return CustomerService.updateCustomer(
+        existingCustomer._id,
+        existingCustomer
+      ).catch(error => {
+        CustomerModelMock.verify();
+        expect(error).to.deep.equal(expectedError);
+      });
+    });
   });
 
   describe("createCustomer", () => {
