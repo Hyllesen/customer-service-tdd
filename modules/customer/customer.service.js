@@ -6,8 +6,13 @@
     createCustomer,
     fetchCustomers,
     fetchCustomerById,
-    updateCustomer
+    updateCustomer,
+    deleteCustomer
   };
+
+  function deleteCustomer(customerId) {
+    return CustomerModel.findByIdAndDelete(customerId).exec();
+  }
 
   function updateCustomer(customerId, customer) {
     return CustomerModel.findByIdAndUpdate(customerId, customer, {
