@@ -31,17 +31,31 @@ describe("CustomerService", () => {
 
   describe("deleteCustomer", () => {
     let existingCustomer, expectedError;
-    it("should successfully remove customer", () => {
+    it("should successfully remove customer", async () => {
       existingCustomer = CustomerFixture.createdCustomer;
 
       CustomerModelMock.expects("findByIdAndDelete")
         .withArgs(existingCustomer._id)
         .chain("exec")
         .resolves(existingCustomer);
-      return CustomerService.deleteCustomer(existingCustomer._id).then(data => {
-        CustomerModelMock.verify();
-        expect(data).to.deep.equal(existingCustomer);
-      });
+      const data = await CustomerService.deleteCustomer(existingCustomer._id);
+      CustomerModelMock.verify();
+      expect(data).to.deep.equal(existingCustomer);
+    });
+    it("should throw error while removing customer", () => {
+      expectedError = ErrorFixture.unknownError;
+      existingCustomer = CustomerFixture.createdCustomer;
+
+      CustomerModelMock.expects("findByIdAndDelete")
+        .withArgs(existingCustomer._id)
+        .chain("exec")
+        .rejects(expectedError);
+      return CustomerService.deleteCustomer(existingCustomer._id).catch(
+        error => {
+          CustomerModelMock.verify();
+          expect(error).to.deep.equal(expectedError);
+        }
+      );
     });
   });
 
