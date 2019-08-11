@@ -21,5 +21,13 @@
     return res.status(200).json(req.response);
   });
 
+  router.delete(
+    "/:customerId",
+    CustomerMiddleware.deleteCustomer,
+    (req, res) => {
+      return res.status(200).json(req.response);
+    }
+  );
+
   module.exports = router;
 })();

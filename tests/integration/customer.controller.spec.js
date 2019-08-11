@@ -52,6 +52,22 @@ describe("CustomerController", function() {
     });
   });
 
+  describe("GET " + baseUri + "/:customerId", () => {
+    it("should get a customer by id", done => {
+      request(app)
+        .get(baseUri + "/" + testData.existingCustomer._id)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body).to.not.equal(undefined);
+          expect(res.body).to.deep.equal(testData.existingCustomer);
+          expect(res.body.firstName).to.equal(
+            testData.existingCustomer.firstName
+          );
+          done();
+        });
+    });
+  });
+
   describe("PUT " + baseUri + "/:customerId", () => {
     it("should modify existing customer", done => {
       testData.modifiedCustomer._id = testData.existingCustomer._id;
@@ -71,14 +87,13 @@ describe("CustomerController", function() {
     });
   });
 
-  describe("GET " + baseUri + "/:customerId", () => {
-    it("should get a customer by id", done => {
+  describe("DELETE " + baseUri + "/:customerId", () => {
+    it("should remove an existing customer", done => {
       request(app)
-        .get(baseUri + "/" + testData.existingCustomer._id)
+        .delete(baseUri + "/" + testData.existingCustomer._id)
         .end((err, res) => {
           expect(res.status).to.equal(200);
-          expect(res.body).to.not.equal(undefined);
-          expect(res.body).to.deep.equal(testData.existingCustomer);
+          expect(res.body.firstName).to.not.equal(undefined);
           expect(res.body.firstName).to.equal(
             testData.existingCustomer.firstName
           );
