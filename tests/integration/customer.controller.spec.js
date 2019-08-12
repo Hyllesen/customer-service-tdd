@@ -1,5 +1,27 @@
 "use strict";
 
+const Mongoose = require("mongoose").Mongoose;
+const Mockgoose = require("mockgoose-fix").Mockgoose;
+const mongoose = new Mongoose();
+const mockgoose = new Mockgoose(mongoose);
+
+mongoose.Promise = global.Promise;
+mockgoose.helper.setDbVersion("3.4.3");
+
+const mockMongoDBURL = "mongodb://localhost:32768/mockCustomerDB";
+
+before(done => {
+  mockgoose.prepareStorage().then(() => {
+    mongoose.connect(
+      mockMongoDBURL,
+      { useNewUrlParser: true, useFindAndModify: false },
+      err => {
+        done(err);
+      }
+    );
+  });
+});
+
 var chai = require("chai");
 var chaiHttp = require("chai-http");
 chai.use(chaiHttp);
